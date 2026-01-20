@@ -6,18 +6,38 @@ import { X } from 'lucide-react';
 
 export default function RequestAccessModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
-    info: '',
+    location: '',
+    area: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Application Submitted:', formData);
-    alert("신청이 접수되었습니다. 담당자가 24시간 내 프라이빗 라인으로 연락드립니다.");
-    setIsOpen(false);
-    setFormData({ name: '', contact: '', info: '' });
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("신청이 정상적으로 접수되었습니다. 검토 후, 전담 디렉터가 남겨주신 연락처로 직접 연락드립니다.");
+        setIsOpen(false);
+        setFormData({ name: '', contact: '', location: '', area: '' });
+      } else {
+        alert("접수 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert("접수 중 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -114,36 +134,74 @@ export default function RequestAccessModal() {
                     <input
                       type="tel"
                       value={formData.contact}
-                      onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^0-9-]/g, '');
+                        if (value.length <= 13) {
+                          setFormData({ ...formData, contact: value });
+                        }
+                      }}
                       className="w-full bg-transparent border-b border-[#333333] focus:border-[#C5A059] text-[#EAEAEA] py-2 outline-none transition-colors text-sm placeholder-[#333333]"
                       placeholder="010-0000-0000"
+                      pattern="^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$"
                       required
                     />
                   </div>
 
-                  {/* Location & Area */}
+                  {/* Location */}
                   <div className="group">
                     <label className="block text-[#666666] text-[10px] tracking-[0.3em] uppercase mb-2 group-focus-within:text-[#C5A059] transition-colors">
-                      Location & Area
+                      Location
                     </label>
                     <input
                       type="text"
-                      value={formData.info}
-                      onChange={(e) => setFormData({ ...formData, info: e.target.value })}
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                       className="w-full bg-transparent border-b border-[#333333] focus:border-[#C5A059] text-[#EAEAEA] py-2 outline-none transition-colors text-sm placeholder-[#333333]"
-                      placeholder="예: 한남동 / 50평"
+                      placeholder="예: 한남동"
                       required
                     />
+                  </div>
+
+                  {/* Area */}
+                  <div className="group">
+                    <label className="block text-[#666666] text-[10px] tracking-[0.3em] uppercase mb-2 group-focus-within:text-[#C5A059] transition-colors">
+                      Area
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.area}
+                      onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+                      className="w-full bg-transparent border-b border-[#333333] focus:border-[#C5A059] text-[#EAEAEA] py-2 outline-none transition-colors text-sm placeholder-[#333333]"
+                      placeholder="예: 50평"
+                      required
+                    />
+                  </div>
+
+                  {/* Consultation Fee Notice */}
+                  <div className="mt-8 mb-4 p-4 border border-[#333333] bg-[#1a1a1a]/50">
+                    <div className="flex justify-between items-baseline">
+                      <span className="text-[#C5A059] text-xs tracking-[0.1em] uppercase">
+                        Reservation Fee
+                      </span>
+                      <span className="text-[#EAEAEA] text-sm font-medium">
+                        100,000 KRW
+                      </span>
+                    </div>
+                    <p className="mt-2 text-[#666666] text-[10px] tracking-wide leading-relaxed">
+                      * 심도 있는 공간 진단을 위해 유료 상담으로 진행됩니다.<br/>
+                      * 계약 체결 시 전액 공제해 드립니다.
+                    </p>
                   </div>
 
                   {/* Submit */}
                   <motion.button
                     type="submit"
-                    className="w-full mt-8 py-4 bg-[#1a1a1a] border border-[#333333] text-[#EAEAEA] text-xs tracking-[0.3em] uppercase hover:bg-[#C5A059] hover:text-[#111111] hover:border-[#C5A059] transition-all duration-500"
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
+                    disabled={isLoading || !formData.name || !formData.contact || !formData.location || !formData.area}
+                    className="w-full mt-8 py-4 bg-[#1a1a1a] border border-[#333333] text-[#EAEAEA] text-xs tracking-[0.3em] uppercase hover:bg-[#C5A059] hover:text-[#111111] hover:border-[#C5A059] transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#1a1a1a] disabled:hover:text-[#EAEAEA] disabled:hover:border-[#333333]"
+                    whileHover={isLoading || !formData.name || !formData.contact || !formData.location || !formData.area ? {} : { scale: 1.01 }}
+                    whileTap={isLoading || !formData.name || !formData.contact || !formData.location || !formData.area ? {} : { scale: 0.99 }}
                   >
-                    Request Consultation
+                    {isLoading ? 'Submitting...' : 'Request Consultation'}
                   </motion.button>
                 </form>
               </motion.div>

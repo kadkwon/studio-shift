@@ -81,12 +81,20 @@ export default function Hero() {
           />
 
           <motion.p
-            className="mt-6 text-[#666666] text-sm tracking-[0.3em] uppercase"
+            className="mt-6 flex flex-col items-center gap-3 px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.8 }}
           >
-            Space Directing
+            <span className="text-[#C5A059] text-xs md:text-sm tracking-[0.3em] uppercase">
+              Space Directing
+            </span>
+            <span className="text-xs md:text-sm opacity-80 text-[#666666] tracking-widest uppercase">
+              Private Interior Atelier
+            </span>
+            <span className="font-[family-name:var(--font-cormorant)] italic text-xs md:text-sm text-[#EAEAEA] mt-1">
+              "Refusing the Ordinary."
+            </span>
           </motion.p>
         </motion.div>
       </div>

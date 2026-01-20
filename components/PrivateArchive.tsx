@@ -178,20 +178,20 @@ export default function PrivateArchive() {
                 </div>
               </div>
 
-              <div className="mt-6">
-                <div className="flex items-baseline justify-between">
+              <div className="mt-6 px-1">
+                <div className="flex items-baseline justify-between gap-4">
                   <h3
-                    className={`font-[family-name:var(--font-cormorant)] text-2xl font-light tracking-wide ${
+                    className={`font-[family-name:var(--font-cormorant)] text-xl md:text-2xl font-light tracking-wide ${
                       isLocked ? 'text-[#444444]' : 'text-[#EAEAEA]'
                     }`}
                   >
                     {isLocked ? '••••••••' : project.title}
                   </h3>
-                  <span className="text-[#666666] text-xs">
+                  <span className="text-[#666666] text-xs shrink-0">
                     {isLocked ? '••••' : project.year}
                   </span>
                 </div>
-                <p className="mt-2 text-[#666666] text-xs tracking-[0.1em] uppercase">
+                <p className="mt-3 text-[#666666] text-xs md:text-sm tracking-[0.1em] uppercase opacity-80">
                   {isLocked ? 'Classified' : project.subtitle}
                 </p>
               </div>
