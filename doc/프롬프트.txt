@@ -1,0 +1,25 @@
+# Ultra High-End Web Project: STUDIO SHIFT
+
+**Objective:** Create a visually stunning, immersive website for a luxury interior brand.
+**Constraint:** SEO is NOT required. Prioritize Visuals, Motion, and UX over performance scores.
+
+## 1. Core Tech Stack (For Visual Shock)
+- **Framework:** Next.js 14 (App Router)
+- **Animation:** GSAP (GreenSock) + ScrollTrigger (Industry standard for award-winning sites)
+- **Smooth Scroll:** Lenis (Essential for luxury feel)
+- **WebGL:** React Three Fiber / Drei (For image distortion effects)
+
+## 2. Key UX Features
+- **Intro Sequence:** A minimal typography animation loading screen. Background fades from Black to Dark Grey.
+- **No Default Scroll:** Override browser scrolling with `Lenis` for a heavy, damped feel.
+- **Liquid Images:** When hovering over portfolio images, apply a subtle WebGL distortion shader to emphasize "Matière" (Texture).
+- **Minimal UI:** Hidden navigation bar. Visible only when scrolling up.
+- **Mobile First:** On mobile, ensure images take up 100vh (Full viewport height). No cropping of key architectural lines.
+
+## 3. The "Gatekeeper" Content Strategy
+- **Homepage:** A single-page storytelling journey.
+- **Portfolio Section:** Display only 3 "Masterpiece" projects.
+- **Call to Action:** Instead of a generic contact form, create a "Private Inquiry" modal that feels like applying for a membership.
+
+**Design Vibe:** "Silent Luxury", "Dark Mode", "Cinematic".
+Make it look like an Awwwards 'Site of the Day' winner.

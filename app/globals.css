@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #111111;
+  --foreground: #EAEAEA;
+  --text-subtle: #666666;
+  --accent: #C5A059;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-subtle: var(--text-subtle);
+  --color-accent: var(--accent);
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-pretendard: 'Pretendard', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Scrollbar Hidden */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* Base Styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-pretendard);
+  cursor: none;
+}
+
+/* Custom Cursor - hide default on interactive elements */
+a, button, [role="button"] {
+  cursor: none;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
