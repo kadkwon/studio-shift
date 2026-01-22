@@ -35,20 +35,41 @@ const projects: Project[] = [
   },
   {
     id: 4,
+    title: 'Sculptural Side',
+    subtitle: 'Bespoke Design / Organic Form',
+    year: '2025',
+    image: '/images/side-table.png',
+  },
+  {
+    id: 5,
+    title: 'Coffee Table',
+    subtitle: 'Sculptural Design / Modern Art',
+    year: '2025',
+    image: '/images/coffee-table.png',
+  },
+  {
+    id: 6,
+    title: 'Minimalist Armchair',
+    subtitle: 'Modern Design / Sculptural Form',
+    year: '2025',
+    image: '/images/armchair.png',
+  },
+  {
+    id: 7,
     title: 'Private Collection',
     subtitle: 'Material Study 01',
     year: '2023',
     image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',
   },
   {
-    id: 5,
+    id: 8,
     title: 'Confidential',
     subtitle: 'Material Study 02',
     year: '2023',
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
   },
   {
-    id: 6,
+    id: 9,
     title: 'Exclusive',
     subtitle: 'Material Study 03',
     year: '2022',
@@ -123,7 +144,7 @@ export default function PrivateArchive() {
       {/* 프로젝트 그리드 */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => {
-          const isLocked = index >= 3;
+          const isLocked = index >= 6;
 
           return (
             <motion.div
